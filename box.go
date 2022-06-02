@@ -45,6 +45,7 @@ func (b *box) ExtractByIndex(i int) (Shape, error) {
 	}
 	outShape := b.shapes[i]
 	b.shapes = append(b.shapes[0:i], b.shapes[i+1:]...)
+	fmt.Println(b.shapes)
 	return outShape, nil
 }
 
@@ -81,7 +82,9 @@ func (b *box) SumArea() float64 {
 // whether circles are not exist in the list, then returns an error
 func (b *box) RemoveAllCircles() error {
 	circleCount := 0
-	for i, shape := range b.shapes {
+	copyShapes := make([]Shape, len(b.shapes))
+	copy(copyShapes, b.shapes)
+	for i, shape := range copyShapes {
 		switch shape.(type) {
 		case *Circle:
 			_, err := b.ExtractByIndex(i + circleCount)
