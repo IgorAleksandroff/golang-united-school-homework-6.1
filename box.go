@@ -82,7 +82,7 @@ func (b *box) RemoveAllCircles() error {
 	circleID := -1
 	for i, shape := range b.shapes {
 		switch shape.(type) {
-		case Circle:
+		case *Circle:
 			circleID = i
 			_, _ = b.ExtractByIndex(i)
 		default:
