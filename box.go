@@ -2,6 +2,7 @@ package golang_united_school_homework
 
 import (
 	"errors"
+	"fmt"
 )
 
 // box contains list of shapes and able to perform operations on them
@@ -79,18 +80,19 @@ func (b *box) SumArea() float64 {
 // RemoveAllCircles removes all circles in the list
 // whether circles are not exist in the list, then returns an error
 func (b *box) RemoveAllCircles() error {
-	circleID := -1
+	circleCount := 0
 	for i, shape := range b.shapes {
 		switch shape.(type) {
 		case *Circle:
-			circleID = i
-			_, _ = b.ExtractByIndex(i)
-		default:
-			continue
+			_, err := b.ExtractByIndex(i + circleCount)
+			if err != nil {
+				return fmt.Errorf("remove all circles erroe: %w", err)
+			}
+			circleCount++
 		}
 	}
 
-	if circleID == -1 {
+	if circleCount == 0 {
 		return errors.New("circles are not exist in the list")
 	}
 	return nil
