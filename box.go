@@ -88,7 +88,7 @@ func (b *box) RemoveAllCircles() error {
 			if err != nil {
 				return fmt.Errorf("remove all circles erroe: %w", err)
 			}
-			circleCount++
+			circleCount--
 		}
 	}
 
